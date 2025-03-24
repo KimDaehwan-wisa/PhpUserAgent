@@ -23,6 +23,7 @@ interface Browsers {
 	const FEEDVALIDATOR       = 'FeedValidator';
 	const FIREFOX             = 'Firefox';
 	const GOOGLEBOT           = 'Googlebot';
+	const GoogleOther         = 'Google-Other';
 	const GOOGLEBOT_IMAGE     = 'Googlebot-Image';
 	const GOOGLEBOT_VIDEO     = 'Googlebot-Video';
 	const GPTBOT              = 'GPTBot';
@@ -58,6 +59,8 @@ interface Browsers {
 	const WORDPRESS           = 'WordPress';
 	const YANDEX              = 'Yandex';
 	const YANDEXBOT           = 'YandexBot';
+	const WhaTap			  = 'WhaTap';
+	const Alchemy			  = 'Alchemy Eye Agent';
 
 }
 

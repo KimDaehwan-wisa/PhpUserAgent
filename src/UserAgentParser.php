@@ -99,7 +99,7 @@ REGEX
 %(?P<browser>Camino|Kindle(\ Fire)?|Firefox|Iceweasel|IceCat|Safari|MSIE|Trident|AppleWebKit|
 TizenBrowser|(?:Headless)?Chrome|YaBrowser|Vivaldi|IEMobile|Opera|OPR|Silk|Midori|(?-i:Edge)|EdgA?|CriOS|UCBrowser|Puffin|
 OculusBrowser|SamsungBrowser|SailfishBrowser|XiaoMi/MiuiBrowser|YaApp_Android|Whale|
-Baiduspider|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|ChatGPT-User|GPTBot|OAI-SearchBot|
+Baiduspider|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|ChatGPT-User|GPTBot|OAI-SearchBot|WhaTap|Alchemy|
 Valve\ Steam\ Tenfoot|Mastodon|
 NintendoBrowser|PLAYSTATION\ (?:\d|Vita)+)
 \)?;?
@@ -217,6 +217,8 @@ REGEX
 
 			$platform = 'PlayStation ' . preg_replace('/\D/', '', $pKey);
 			$browser  = 'NetFront';
+		} elseif( $find([ 'Alchemy', 'WhaTap' ], $key, $val) ) {
+			$version = is_numeric(substr($result[BROWSER_VERSION][$key], 0, 1)) ? $result[BROWSER_VERSION][$key] : null;
 		}
 
 		return $return;
