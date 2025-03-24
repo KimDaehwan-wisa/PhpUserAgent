@@ -1,5 +1,5 @@
 {
-	"name": "donatj/phpuseragentparser",
+	"name": "zardsama/phpuseragentparser",
 	"type": "library",
 	"description": "Lightning fast, minimalist PHP UserAgent string parser.",
 	"keywords": [
