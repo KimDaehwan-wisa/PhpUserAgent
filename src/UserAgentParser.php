@@ -99,7 +99,8 @@ REGEX
 %(?P<browser>Camino|Kindle(\ Fire)?|Firefox|Iceweasel|IceCat|Safari|MSIE|Trident|AppleWebKit|
 TizenBrowser|(?:Headless)?Chrome|YaBrowser|Vivaldi|IEMobile|Opera|OPR|Silk|Midori|(?-i:Edge)|EdgA?|CriOS|UCBrowser|Puffin|
 OculusBrowser|SamsungBrowser|SailfishBrowser|XiaoMi/MiuiBrowser|YaApp_Android|Whale|
-Baiduspider|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|ChatGPT-User|GPTBot|OAI-SearchBot|WhaTap|Alchemy|
+Baiduspider|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|ChatGPT-User|GPTBot|OAI-SearchBot|
+WhaTap|Alchemy|Yeti|slurp|GoogleDocs|heritrix|
 Valve\ Steam\ Tenfoot|Mastodon|
 NintendoBrowser|PLAYSTATION\ (?:\d|Vita)+)
 \)?;?
@@ -155,7 +156,7 @@ REGEX
 
 		$key = 0;
 		$val = '';
-		if( $findT([ 'OPR' => 'Opera', 'Facebot' => 'iMessageBot', 'UCBrowser' => 'UC Browser', 'YaBrowser' => 'Yandex', 'YaApp_Android' => 'Yandex', 'Iceweasel' => 'Firefox', 'Icecat' => 'Firefox', 'CriOS' => 'Chrome', 'Edg' => 'Edge', 'EdgA' => 'Edge', 'XiaoMi/MiuiBrowser' => 'MiuiBrowser' ], $key, $browser) ) {
+		if( $findT([ 'OPR' => 'Opera', 'Facebot' => 'iMessageBot', 'UCBrowser' => 'UC Browser', 'YaBrowser' => 'Yandex', 'YaApp_Android' => 'Yandex', 'Iceweasel' => 'Firefox', 'Icecat' => 'Firefox', 'CriOS' => 'Chrome', 'Edg' => 'Edge', 'EdgA' => 'Edge', 'XiaoMi/MiuiBrowser' => 'MiuiBrowser', 'Yeti' => 'NaverBot', 'Slurp' => 'Yahoo!Bot' ], $key, $browser) ) {
 			$version = is_numeric(substr($result[BROWSER_VERSION][$key], 0, 1)) ? $result[BROWSER_VERSION][$key] : null;
 		} elseif( $find('Playstation Vita', $key, $platform) ) {
 			$platform = 'PlayStation Vita';
@@ -177,17 +178,27 @@ REGEX
 			$version = $result[BROWSER_VERSION][$key];
 		} elseif( $find('Puffin', $key, $browser) ) {
 			$version = $result[BROWSER_VERSION][$key];
-			if( strlen($version) > 3 ) {
+			if (strlen($version) > 3) {
 				$part = substr($version, -2);
-				if( ctype_upper($part) ) {
+				if (ctype_upper($part)) {
 					$version = substr($version, 0, -2);
 
-					$flags = [ 'IP' => 'iPhone', 'IT' => 'iPad', 'AP' => 'Android', 'AT' => 'Android', 'WP' => 'Windows Phone', 'WT' => 'Windows' ];
-					if( isset($flags[$part]) ) {
+					$flags = [
+						'IP' => 'iPhone',
+						'IT' => 'iPad',
+						'AP' => 'Android',
+						'AT' => 'Android',
+						'WP' => 'Windows Phone',
+						'WT' => 'Windows'
+					];
+					if (isset($flags[$part])) {
 						$platform = $flags[$part];
 					}
 				}
 			}
+		} elseif( preg_match('/Bytespider/', $u_agent) ) {
+			$browser = 'Bytespider';
+			$version = '';
 		} elseif( $find([ 'Googlebot', 'Applebot', 'IEMobile', 'Edge', 'Midori', 'Whale', 'Vivaldi', 'OculusBrowser', 'SamsungBrowser', 'Valve Steam Tenfoot', 'Chrome', 'HeadlessChrome', 'SailfishBrowser' ], $key, $browser) ) {
 			$version = $result[BROWSER_VERSION][$key];
 		} elseif( $rv_result && $find('Trident') ) {
